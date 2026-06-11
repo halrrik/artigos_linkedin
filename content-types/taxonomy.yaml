@@ -1,0 +1,171 @@
+content_taxonomy:
+  id: grimorio.child.artigos_linkedin.content_taxonomy
+  type: taxonomy_contract
+  layer: child
+  status: active_development
+  version: 0.1.0
+  scope: classify_editorial_content_and_visual_assets_before_production
+  precedence: after_registry_and_routes_before_templates
+  dependencies:
+    - registry.yaml
+    - routes.yaml
+    - templates/linkedin-post-template.md
+    - templates/article-template.md
+  exports:
+    - content_formats
+    - visual_asset_types
+    - production_requirements
+    - classification_rules
+
+  content_formats:
+    feed_post:
+      label: post_somente_no_feed
+      channel: linkedin_feed
+      description: short_or_medium_post_published_directly_in_feed
+      has_dedicated_page: false
+      default_text_depth: short_to_medium
+      typical_use:
+        - quick_reflection
+        - concrete_observation
+        - provocation
+        - lesson_learned
+        - compact_argument
+      may_use_visual_assets: true
+      default_visual_policy: optional
+    article_post:
+      label: artigo_linkedin_com_pagina_propria
+      channel: linkedin_article
+      description: long_form_linkedin_article_with_own_page
+      has_dedicated_page: true
+      default_text_depth: long
+      typical_use:
+        - developed_argument
+        - structured_explanation
+        - multi_section_reflection
+        - evergreen_reference
+      may_use_visual_assets: true
+      default_visual_policy: cover_recommended
+    image_feed_post:
+      label: post_de_feed_com_imagem
+      channel: linkedin_feed
+      description: feed_post_where_image_is_part_of_the_message_not_only_decoration
+      has_dedicated_page: false
+      default_text_depth: short_to_medium
+      typical_use:
+        - visual_hook
+        - concept_summary
+        - contrast_or_metaphor
+        - quote_or_key_sentence
+      may_use_visual_assets: true
+      default_visual_policy: required
+
+  visual_asset_types:
+    call_image:
+      label: imagem_de_chamada
+      purpose: attract_attention_and_frame_the_topic
+      relation_to_text: supports_or_introduces_content
+      typical_use:
+        - article_cover
+        - feed_post_header
+        - campaign_or_series_identity
+      production_notes:
+        - must_not_replace_the_argument
+        - should_make_topic_clear_fast
+        - should_avoid_generic_stock_visual_style
+    feed_image:
+      label: imagem_para_feed
+      purpose: carry_or_reinforce_message_inside_feed
+      relation_to_text: complementary_or_core_message
+      typical_use:
+        - single_visual_insight
+        - simplified_diagram
+        - memorable_sentence
+        - contrast_between_two_ideas
+      production_notes:
+        - must_be_readable_in_feed
+        - should_work_even_when_scrolled_quickly
+        - should_not_overload_with_text
+    hq_caricature:
+      label: imagem_tipo_hq_com_caricaturas
+      purpose: explain_or_satirize_a_theme_with_visual_narrative
+      relation_to_text: narrative_or_conceptual_asset
+      typical_use:
+        - recurring_character_scene
+        - organizational_antipattern
+        - agile_or_ai_situation
+        - comic_metaphor
+      production_notes:
+        - needs_scene_brief
+        - needs_character_or_archetype_description
+        - should_preserve_respectful_tone
+        - should_not_depend_on_private_company_context
+
+  classification_fields:
+    required_for_every_item:
+      - content_format
+      - channel
+      - objective
+      - audience
+      - thesis_or_message
+      - visual_asset_policy
+      - production_status
+    required_when_visual_asset_policy_is_required_or_recommended:
+      - visual_asset_type
+      - visual_objective
+      - image_brief
+      - relation_between_text_and_image
+    required_for_hq_caricature:
+      - scene
+      - characters_or_archetypes
+      - conflict_or_tension
+      - intended_reader_reaction
+      - tone_boundaries
+
+  visual_asset_policy_values:
+    none: no_visual_asset_expected
+    optional: visual_asset_can_be_added_later
+    recommended: visual_asset_should_be_considered_before_publication
+    required: visual_asset_is_part_of_the_content_definition
+
+  production_status_values:
+    idea: raw_or_unvalidated
+    triaged: classified_and_worth_developing
+    briefing: needs_content_or_image_brief
+    drafting: text_or_visual_brief_in_progress
+    reviewing: under_review
+    approved: approved_by_richard
+    ready: ready_for_publication
+    published: already_published
+    archived: intentionally_stopped
+
+  rules:
+    - id: classify_before_drafting
+      applies_when: new_editorial_item_is_created
+      do:
+        - assign_content_format
+        - assign_visual_asset_policy
+        - identify_required_assets
+      avoid:
+        - drafting_without_knowing_if_content_is_feed_post_article_or_visual_post
+      precedence: mandatory
+      failure_if_ignored: content_pipeline_confuses_text_output_with_visual_or_article_output
+    - id: separate_content_from_asset
+      applies_when: item_has_images_or_visual_component
+      do:
+        - keep_text_content_and_visual_asset_brief_as_distinct_fields
+        - define_relation_between_text_and_image
+      avoid:
+        - treating_image_as_decorative_when_it_carries_message
+      precedence: mandatory
+      failure_if_ignored: visual_production_lacks_brief_or_misaligned_with_text
+    - id: hq_requires_scene_brief
+      applies_when: visual_asset_type_is_hq_caricature
+      do:
+        - define_scene
+        - define_characters_or_archetypes
+        - define_conflict_or_tension
+        - define_tone_boundaries
+      avoid:
+        - generating_caricature_without_editorial_intent
+      precedence: mandatory
+      failure_if_ignored: hq_image_becomes_random_or_misaligned_with_theme
