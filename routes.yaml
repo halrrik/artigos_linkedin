@@ -3,11 +3,12 @@ routes:
   type: routing_contract
   layer: child
   status: active_development
-  version: 0.1.0
-  scope: editorial_content_creation_and_memory_routing
+  version: 0.1.1
+  scope: editorial_content_creation_memory_routing_and_asset_classification
   precedence: after_registry_before_local_markdown
   dependencies:
     - registry.yaml
+    - content-types/taxonomy.yaml
     - context/editorial-system-context.md
     - grimoire/style/style-guide.md
     - grimoire/memory/editorial-memory.md
@@ -16,11 +17,14 @@ routes:
     - request_to_context_mapping
     - task_state_detection
     - memory_update_targets
+    - content_format_classification
+    - visual_asset_classification
 
   request_routes:
     brainstorm:
       when_user_intent: explore_or_capture_rough_idea
       consult:
+        - content-types/taxonomy.yaml
         - backlog/inbox.md
         - backlog/themes.md
         - context/editorial-system-context.md
@@ -28,10 +32,23 @@ routes:
         - reconstruct_intent
         - classify_raw_material
         - identify_tension_and_possible_angle
+        - optionally_classify_possible_content_format
         - do_not_generate_final_content_unless_requested
-    linkedin_post_draft:
-      when_user_intent: create_or_expand_linkedin_post
+    content_classification:
+      when_user_intent: decide_what_kind_of_content_will_be_built
       consult:
+        - content-types/taxonomy.yaml
+        - backlog/themes.md
+        - backlog/series.md
+      actions:
+        - classify_content_format
+        - classify_visual_asset_policy
+        - identify_required_text_or_visual_brief
+        - define_next_production_step
+    linkedin_post_draft:
+      when_user_intent: create_or_expand_linkedin_feed_post
+      consult:
+        - content-types/taxonomy.yaml
         - backlog/linkedin-posts.md
         - grimoire/style/style-guide.md
         - grimoire/memory/editorial-memory.md
@@ -39,45 +56,80 @@ routes:
         - agent/editorial-agent.md
       actions:
         - identify_or_create_backlog_candidate
+        - assign_content_format_feed_post_or_image_feed_post
         - draft_with_clear_thesis
         - use_concrete_opening
         - mark_risks_or_factual_gaps
-    long_article_draft:
-      when_user_intent: create_or_expand_long_article
+    linkedin_article_draft:
+      when_user_intent: create_or_expand_linkedin_article_with_dedicated_page
       consult:
+        - content-types/taxonomy.yaml
         - backlog/articles.md
         - grimoire/style/style-guide.md
         - templates/article-template.md
         - agent/editorial-agent.md
       actions:
+        - assign_content_format_article_post
         - build_argument_structure
         - preserve_continuity
+        - consider_call_image_brief
         - avoid_generic_corporate_language
-    revision:
-      when_user_intent: review_validate_or_improve_text
+    visual_asset_brief:
+      when_user_intent: create_or_define_image_for_feed_or_article
       consult:
+        - content-types/taxonomy.yaml
+        - grimoire/style/style-guide.md
+        - templates/visual-asset-template.md
+      actions:
+        - classify_visual_asset_type
+        - define_visual_objective
+        - define_relation_between_text_and_image
+        - produce_image_brief_not_final_image_unless_requested
+    hq_caricature_brief:
+      when_user_intent: create_hq_or_caricature_style_visual_for_theme
+      consult:
+        - content-types/taxonomy.yaml
+        - grimoire/style/style-guide.md
+        - templates/visual-asset-template.md
+      actions:
+        - define_scene
+        - define_characters_or_archetypes
+        - define_conflict_or_tension
+        - define_tone_boundaries
+        - produce_structured_visual_brief
+    revision:
+      when_user_intent: review_validate_or_improve_text_or_visual_brief
+      consult:
+        - content-types/taxonomy.yaml
         - grimoire/style/style-guide.md
         - grimoire/core/grimoire-principles.md
         - templates/linkedin-post-template.md
         - templates/article-template.md
+        - templates/visual-asset-template.md
       actions:
         - evaluate_thesis_clarity
+        - evaluate_format_fit
         - identify_generic_or_artificial_patterns
         - challenge_weak_argument_before_rewriting
         - suggest_precise_changes
     publication_readiness:
       when_user_intent: prepare_content_for_publication
       consult:
+        - content-types/taxonomy.yaml
         - workflows/content-pipeline.md
         - templates/linkedin-post-template.md
+        - templates/article-template.md
+        - templates/visual-asset-template.md
         - backlog/linkedin-posts.md
       actions:
         - confirm_approval_state
-        - check_readiness
+        - check_content_format_requirements
+        - check_visual_asset_requirements
         - keep_human_approval_required
     memory_learning:
       when_user_intent: record_editorial_learning_or_decision
       consult:
+        - content-types/taxonomy.yaml
         - grimoire/memory/editorial-memory.md
         - decisions/
         - workflows/content-pipeline.md
@@ -102,8 +154,9 @@ routes:
     raw_idea: backlog/inbox.md
     triaged_theme: backlog/themes.md
     series_candidate: backlog/series.md
-    linkedin_post_candidate: backlog/linkedin-posts.md
-    long_article_candidate: backlog/articles.md
+    linkedin_feed_post_candidate: backlog/linkedin-posts.md
+    linkedin_article_candidate: backlog/articles.md
+    visual_asset_candidate: backlog/visual-assets.md
     debate_response_candidate: backlog/responses.md
     reusable_editorial_learning: grimoire/memory/editorial-memory.md
     stable_editorial_decision: decisions/
@@ -114,6 +167,8 @@ routes:
 
   failure_modes:
     routing_missing: ai_guesses_context_location_or_loads_unrelated_context
+    content_type_missing: item_is_built_without_knowing_feed_post_article_or_visual_content
+    visual_asset_missing: image_required_but_no_visual_brief_exists
     raw_to_final_jump: brainstorm_is_converted_into_final_post_without_user_intent
     generic_linkedin_style: output_loses_authorial_voice
     uncontrolled_memory_update: temporary_observation_becomes_stable_rule_without_approval
