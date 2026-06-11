@@ -1,0 +1,120 @@
+routes:
+  id: grimorio.child.artigos_linkedin.routes
+  type: routing_contract
+  layer: child
+  status: active_development
+  version: 0.1.0
+  scope: editorial_content_creation_and_memory_routing
+  precedence: after_registry_before_local_markdown
+  dependencies:
+    - registry.yaml
+    - context/editorial-system-context.md
+    - grimoire/style/style-guide.md
+    - grimoire/memory/editorial-memory.md
+    - workflows/content-pipeline.md
+  exports:
+    - request_to_context_mapping
+    - task_state_detection
+    - memory_update_targets
+
+  request_routes:
+    brainstorm:
+      when_user_intent: explore_or_capture_rough_idea
+      consult:
+        - backlog/inbox.md
+        - backlog/themes.md
+        - context/editorial-system-context.md
+      actions:
+        - reconstruct_intent
+        - classify_raw_material
+        - identify_tension_and_possible_angle
+        - do_not_generate_final_content_unless_requested
+    linkedin_post_draft:
+      when_user_intent: create_or_expand_linkedin_post
+      consult:
+        - backlog/linkedin-posts.md
+        - grimoire/style/style-guide.md
+        - grimoire/memory/editorial-memory.md
+        - templates/linkedin-post-template.md
+        - agent/editorial-agent.md
+      actions:
+        - identify_or_create_backlog_candidate
+        - draft_with_clear_thesis
+        - use_concrete_opening
+        - mark_risks_or_factual_gaps
+    long_article_draft:
+      when_user_intent: create_or_expand_long_article
+      consult:
+        - backlog/articles.md
+        - grimoire/style/style-guide.md
+        - templates/article-template.md
+        - agent/editorial-agent.md
+      actions:
+        - build_argument_structure
+        - preserve_continuity
+        - avoid_generic_corporate_language
+    revision:
+      when_user_intent: review_validate_or_improve_text
+      consult:
+        - grimoire/style/style-guide.md
+        - grimoire/core/grimoire-principles.md
+        - templates/linkedin-post-template.md
+        - templates/article-template.md
+      actions:
+        - evaluate_thesis_clarity
+        - identify_generic_or_artificial_patterns
+        - challenge_weak_argument_before_rewriting
+        - suggest_precise_changes
+    publication_readiness:
+      when_user_intent: prepare_content_for_publication
+      consult:
+        - workflows/content-pipeline.md
+        - templates/linkedin-post-template.md
+        - backlog/linkedin-posts.md
+      actions:
+        - confirm_approval_state
+        - check_readiness
+        - keep_human_approval_required
+    memory_learning:
+      when_user_intent: record_editorial_learning_or_decision
+      consult:
+        - grimoire/memory/editorial-memory.md
+        - decisions/
+        - workflows/content-pipeline.md
+      actions:
+        - classify_learning_type
+        - distinguish_durable_learning_from_local_edit
+        - propose_target_file
+        - require_approval_before_stable_memory_update
+    writing_sample_analysis:
+      when_user_intent: analyze_author_writing_sample
+      consult:
+        - writing-samples/
+        - templates/writing-sample-analysis-template.md
+        - grimoire/memory/editorial-memory.md
+      actions:
+        - extract_patterns_without_copying
+        - identify_transferable_style
+        - identify_elements_not_to_replicate
+        - propose_memory_update
+
+  information_targets:
+    raw_idea: backlog/inbox.md
+    triaged_theme: backlog/themes.md
+    series_candidate: backlog/series.md
+    linkedin_post_candidate: backlog/linkedin-posts.md
+    long_article_candidate: backlog/articles.md
+    debate_response_candidate: backlog/responses.md
+    reusable_editorial_learning: grimoire/memory/editorial-memory.md
+    stable_editorial_decision: decisions/
+    draft_output: drafts/
+    approved_ready_output: ready/
+    published_record: published/
+    performance_learning: metrics/
+
+  failure_modes:
+    routing_missing: ai_guesses_context_location_or_loads_unrelated_context
+    raw_to_final_jump: brainstorm_is_converted_into_final_post_without_user_intent
+    generic_linkedin_style: output_loses_authorial_voice
+    uncontrolled_memory_update: temporary_observation_becomes_stable_rule_without_approval
+    publication_without_governance: content_moves_to_publication_state_without_human_approval
