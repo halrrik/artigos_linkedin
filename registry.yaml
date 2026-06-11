@@ -3,11 +3,29 @@ registry:
   type: child_grimorio_registry
   layer: child
   status: active_development
+  version: 0.1.1
   parent_id: grimorio.registry
   parent_version: 1.0.0-dev
-  local_version: 0.1.0
+  local_version: 0.1.1
   last_used_at: 2026-06-11
-  migration_status: partially_migrated_to_machine_native
+  migration_status: aligned_with_parent_1_0_0_dev
+  scope: editorial_content_grimorio_for_ai_assisted_authorial_publishing
+  precedence: registry_first_for_machine_use
+  dependencies:
+    - routes.yaml
+    - context/editorial-system-context.md
+    - grimoire/core/grimoire-principles.md
+    - grimoire/style/style-guide.md
+    - grimoire/memory/editorial-memory.md
+    - workflows/content-pipeline.md
+    - validation/grimorio-identity-check.yaml
+  exports:
+    - canonical_entrypoints
+    - domain_scope
+    - precedence_rules
+    - context_routes
+    - memory_update_policy
+    - readiness_status
 
   source:
     repository_full_name: halrrik/artigos_linkedin
@@ -76,7 +94,7 @@ registry:
       It may adapt structure to editorial work, but must preserve continuity, context routing,
       typed memory, controlled learning and explicit approval before publication.
 
-  precedence:
+  precedence_rules:
     order:
       - user_explicit_request_in_current_session
       - system_and_platform_instructions
@@ -108,14 +126,15 @@ registry:
     - require_explicit_human_approval_before_publication_or_commit_when_not_requested
     - capture_reusable_learning_only_after_classification_and_approval
 
-  identity_validation:
-    status: conditionally_passes_as_child_grimorio
+  readiness:
+    status: ready_for_editorial_work
+    classification: child_grimorio_application_aligned_with_parent_1_0_0_dev
     rationale: >
-      The repository satisfies the core Grimorio concept for an editorial domain because it
-      stores operational rules, routing, backlog, style, workflow, decisions and learning
-      structures. It still needs more real writing samples and populated editorial memory
-      to strengthen continuity and reduce reliance on current-chat context.
-    open_gaps:
+      The repository contains canonical machine entrypoint, routing, typed backlog,
+      style rules, workflow, templates, validation and memory location. It is ready
+      for controlled editorial work. Writing samples and post-publication metrics
+      remain maturity improvements, not blockers.
+    remaining_maturity_gaps:
       - writing_samples_not_yet_imported_or_analyzed
       - editorial_memory_sections_still_sparse
       - post_publication_metrics_not_yet_operationalized
