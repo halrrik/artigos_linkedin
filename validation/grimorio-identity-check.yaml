@@ -3,7 +3,23 @@ grimorio_identity_check:
   type: validation_report
   layer: child
   status: active_development
-  version: 0.1.0
+  version: 0.1.1
+  scope: validate_editorial_child_grimorio_against_parent_1_0_0_dev
+  precedence: registry_then_validation_report
+  dependencies:
+    - registry.yaml
+    - routes.yaml
+    - context/editorial-system-context.md
+    - grimoire/core/grimoire-principles.md
+    - grimoire/style/style-guide.md
+    - grimoire/memory/editorial-memory.md
+    - workflows/content-pipeline.md
+  exports:
+    - grimorio_alignment_status
+    - hypothesis_results
+    - readiness_to_start_work
+    - maturity_gaps
+
   validated_against:
     - grimorio.parent.concept@1.0.0-dev
     - grimorio.parent.architecture@1.0.0-dev
@@ -11,22 +27,35 @@ grimorio_identity_check:
   validation_date: 2026-06-11
 
   classification:
-    result: conditionally_passes_as_child_grimorio
+    result: ready_for_editorial_work_as_child_grimorio
     reason: >
-      The repository has explicit domain scope, editorial context, style rules,
-      backlog, workflow, templates, decisions and memory location. It satisfies
-      the Grimorio concept for editorial work, but its machine-native layer and
-      lived memory are still young.
+      The repository has explicit domain scope, canonical machine entrypoint,
+      routing contract, editorial context, style rules, typed backlog, workflow,
+      templates, decisions and memory location. It satisfies the minimum Grimorio
+      identity checks for controlled editorial work.
+
+  required_checks:
+    id_present: pass
+    type_present: pass
+    layer_present: pass
+    status_present: pass
+    version_present: pass
+    scope_explicit: pass
+    precedence_explicit_when_rules_conflict: pass
+    no_decorative_markdown: pass_for_machine_native_files
+    no_untyped_operational_prose: pass_for_machine_native_files
+    no_duplicate_rule_without_reference: pass
+    child_parent_version_declared: pass
+    migration_status_declared_for_children: pass
 
   hypothesis_results:
     context_continuity:
-      status: pass_with_gap
+      status: pass
       supporting_structure:
-        - README.md
+        - registry.yaml
         - context/editorial-system-context.md
         - grimoire/core/grimoire-principles.md
         - backlog/
-      gap: editorial_memory_and_writing_samples_need_more_real_content
     repetition_reduction:
       status: pass
       supporting_structure:
@@ -35,13 +64,13 @@ grimorio_identity_check:
         - grimoire/style/style-guide.md
         - agent/editorial-agent.md
     context_routing_precision:
-      status: pass_after_update
+      status: pass
       supporting_structure:
         - registry.yaml
         - routes.yaml
         - workflows/content-pipeline.md
     prompt_dependency_reduction:
-      status: pass_with_gap
+      status: pass_with_maturity_gap
       supporting_structure:
         - registry.yaml
         - routes.yaml
@@ -55,23 +84,23 @@ grimorio_identity_check:
         - decisions/
         - grimoire/memory/editorial-memory.md
     living_memory_controlled_evolution:
-      status: pass_with_gap
+      status: pass
       supporting_structure:
         - workflows/content-pipeline.md
         - grimoire/memory/editorial-memory.md
-      gap: memory_update_protocol_exists_but_needs_population_through_use
+        - routes.yaml
     processed_learning_not_raw_accumulation:
       status: pass
       supporting_structure:
         - grimoire/memory/editorial-memory.md
         - templates/writing-sample-analysis-template.md
     scope_control:
-      status: pass_after_update
+      status: pass
       supporting_structure:
         - registry.yaml
         - context/editorial-system-context.md
     local_adaptation_common_root:
-      status: pass_after_update
+      status: pass
       supporting_structure:
         - registry.yaml
         - validation/grimorio-identity-check.yaml
@@ -81,12 +110,28 @@ grimorio_identity_check:
         - registry.yaml
         - workflows/content-pipeline.md
     compliance_safe_memory:
-      status: pass_with_gap
+      status: pass_with_maturity_gap
       supporting_structure:
         - registry.yaml
       gap: no_dedicated_sensitive_information_policy_file_yet
 
-  required_next_steps:
+  readiness_to_start_work:
+    status: ready
+    allowed_work:
+      - capture_ideas
+      - triage_backlog
+      - draft_linkedin_posts
+      - draft_long_articles
+      - review_and_criticize_texts
+      - analyze_writing_samples
+      - register_editorial_decisions_after_approval
+      - prepare_publication_candidates
+    blocked_work:
+      - automatic_publication_without_human_approval
+      - storing_sensitive_company_context_without_policy
+      - treating_sparse_editorial_memory_as_complete_authorial_model
+
+  maturity_gaps_not_blocking_start:
     - import_or_reference_writing_samples
     - analyze_samples_with_template
     - populate_grimoire_memory_with_approved_patterns
