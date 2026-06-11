@@ -1,0 +1,122 @@
+registry:
+  id: grimorio.child.artigos_linkedin.registry
+  type: child_grimorio_registry
+  layer: child
+  status: active_development
+  parent_id: grimorio.registry
+  parent_version: 1.0.0-dev
+  local_version: 0.1.0
+  last_used_at: 2026-06-11
+  migration_status: partially_migrated_to_machine_native
+
+  source:
+    repository_full_name: halrrik/artigos_linkedin
+    default_branch: main
+    role: canonical_versioned_source_for_editorial_content
+
+  domain_scope:
+    in_scope:
+      - editorial_memory_for_ai_assisted_content_creation
+      - linkedin_posts
+      - long_articles
+      - editorial_backlog
+      - writing_style_capture
+      - draft_revision
+      - publication_readiness
+      - post_publication_learning
+      - derived_materials_from_editorial_backlog
+    out_of_scope:
+      - automatic_publication_without_human_approval
+      - generic_personal_memory
+      - raw_chat_archive
+      - unrelated_project_management
+      - sensitive_or_confidential_data_storage_without_governance
+      - replacement_of_shadevansoul_operational_identity
+
+  entrypoints:
+    canonical_machine_entrypoint: registry.yaml
+    human_entrypoint: README.md
+    routing_contract: routes.yaml
+    local_context:
+      - context/editorial-system-context.md
+      - grimoire/core/grimoire-principles.md
+      - grimoire/style/style-guide.md
+      - grimoire/memory/editorial-memory.md
+    backlog_index:
+      - backlog/README.md
+      - backlog/inbox.md
+      - backlog/themes.md
+      - backlog/series.md
+      - backlog/articles.md
+      - backlog/linkedin-posts.md
+      - backlog/responses.md
+    workflows:
+      - workflows/content-pipeline.md
+    templates:
+      - templates/linkedin-post-template.md
+      - templates/article-template.md
+      - templates/writing-sample-analysis-template.md
+    validation:
+      - validation/grimorio-identity-check.yaml
+
+  inheritance:
+    parent_contracts:
+      - grimorio.parent.concept
+      - grimorio.parent.architecture
+      - grimorio.parent.inheritance
+      - grimorio.validation.checks
+    inheritance_order:
+      - parent_grimorio_concept
+      - parent_machine_native_architecture
+      - local_editorial_domain_rules
+      - local_backlog_and_memory
+      - local_templates_and_workflows
+    local_extension_rule: >
+      This repository is a domain-specific child Grimorio for editorial content creation.
+      It may adapt structure to editorial work, but must preserve continuity, context routing,
+      typed memory, controlled learning and explicit approval before publication.
+
+  precedence:
+    order:
+      - user_explicit_request_in_current_session
+      - system_and_platform_instructions
+      - parent_grimorio_contracts
+      - this_registry
+      - routes.yaml
+      - decisions
+      - context/editorial-system-context.md
+      - grimoire/core/grimoire-principles.md
+      - grimoire/style/style-guide.md
+      - grimoire/memory/editorial-memory.md
+      - backlog_items
+      - templates
+    conflict_resolution:
+      - preserve_parent_concept_unless_user_approves_structural_change
+      - preserve_human_approval_for_publication
+      - prefer_typed_memory_over_raw_accumulation
+      - prefer_current_backlog_status_over_assumed_task_state
+      - escalate_when_context_is_missing_or_ambiguous
+
+  required_behavior:
+    - reduce_repeated_context_explanation_for_editorial_work
+    - recover_relevant_prior_editorial_decisions
+    - route_requests_to_the_correct_context_files
+    - separate_raw_ideas_from_drafts_ready_items_published_items_and_memory
+    - avoid_turning_brainstorm_into_final_content_without_request
+    - challenge_weak_arguments_before_polishing
+    - preserve_authorial_voice_over_generic_linkedin_style
+    - require_explicit_human_approval_before_publication_or_commit_when_not_requested
+    - capture_reusable_learning_only_after_classification_and_approval
+
+  identity_validation:
+    status: conditionally_passes_as_child_grimorio
+    rationale: >
+      The repository satisfies the core Grimorio concept for an editorial domain because it
+      stores operational rules, routing, backlog, style, workflow, decisions and learning
+      structures. It still needs more real writing samples and populated editorial memory
+      to strengthen continuity and reduce reliance on current-chat context.
+    open_gaps:
+      - writing_samples_not_yet_imported_or_analyzed
+      - editorial_memory_sections_still_sparse
+      - post_publication_metrics_not_yet_operationalized
+      - child_not_registered_in_parent_children_registry
