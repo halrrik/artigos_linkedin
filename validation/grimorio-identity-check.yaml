@@ -2,14 +2,16 @@ grimorio_identity_check:
   id: grimorio.child.artigos_linkedin.identity_check
   type: validation_report
   layer: child
-  status: active_development
-  version: 0.1.1
+  status: applicable
+  version: 0.2.0
   scope: validate_editorial_child_grimorio_against_parent_1_0_0_dev
   precedence: registry_then_validation_report
   dependencies:
     - registry.yaml
     - routes.yaml
+    - content-types/taxonomy.yaml
     - context/editorial-system-context.md
+    - context/sensitive-information-policy.md
     - grimoire/core/grimoire-principles.md
     - grimoire/style/style-guide.md
     - grimoire/memory/editorial-memory.md
@@ -19,20 +21,24 @@ grimorio_identity_check:
     - hypothesis_results
     - readiness_to_start_work
     - maturity_gaps
+    - applicable_status
 
   validated_against:
     - grimorio.parent.concept@1.0.0-dev
     - grimorio.parent.architecture@1.0.0-dev
+    - grimorio.parent.inheritance@1.0.0-dev
     - grimorio.validation.checks@1.0.0-dev
   validation_date: 2026-06-11
 
   classification:
-    result: ready_for_editorial_work_as_child_grimorio
+    result: valid_applicable_child_grimorio
     reason: >
       The repository has explicit domain scope, canonical machine entrypoint,
-      routing contract, editorial context, style rules, typed backlog, workflow,
-      templates, decisions and memory location. It satisfies the minimum Grimorio
-      identity checks for controlled editorial work.
+      routing contract, content taxonomy, editorial context, style rules,
+      typed backlog, workflow, templates, decisions, memory location,
+      sensitive information policy and processed editorial learning. It now
+      satisfies the minimum Grimorio identity checks for applicable controlled
+      editorial work.
 
   required_checks:
     id_present: pass
@@ -47,6 +53,10 @@ grimorio_identity_check:
     no_duplicate_rule_without_reference: pass
     child_parent_version_declared: pass
     migration_status_declared_for_children: pass
+    sensitive_information_policy_present: pass
+    processed_learning_available: pass
+    editorial_memory_populated: pass
+    style_guide_populated: pass
 
   hypothesis_results:
     context_continuity:
@@ -55,6 +65,7 @@ grimorio_identity_check:
         - registry.yaml
         - context/editorial-system-context.md
         - grimoire/core/grimoire-principles.md
+        - grimoire/memory/editorial-memory.md
         - backlog/
     repetition_reduction:
       status: pass
@@ -63,6 +74,7 @@ grimorio_identity_check:
         - routes.yaml
         - grimoire/style/style-guide.md
         - agent/editorial-agent.md
+        - references/processing/linkedin-content-map/
     context_routing_precision:
       status: pass
       supporting_structure:
@@ -75,7 +87,9 @@ grimorio_identity_check:
         - registry.yaml
         - routes.yaml
         - templates/
-      gap: more_examples_are_needed_to_reduce_prompt_detail_for_style_sensitive_tasks
+        - grimoire/style/style-guide.md
+        - grimoire/memory/editorial-memory.md
+      gap: more_complete_writing_samples_can_further_reduce_prompt_detail_for_style_sensitive_tasks
     typed_operational_memory:
       status: pass
       supporting_structure:
@@ -89,16 +103,19 @@ grimorio_identity_check:
         - workflows/content-pipeline.md
         - grimoire/memory/editorial-memory.md
         - routes.yaml
+        - context/sensitive-information-policy.md
     processed_learning_not_raw_accumulation:
       status: pass
       supporting_structure:
         - grimoire/memory/editorial-memory.md
         - templates/writing-sample-analysis-template.md
+        - references/processing/linkedin-content-map/
     scope_control:
       status: pass
       supporting_structure:
         - registry.yaml
         - context/editorial-system-context.md
+        - context/sensitive-information-policy.md
     local_adaptation_common_root:
       status: pass
       supporting_structure:
@@ -108,15 +125,17 @@ grimorio_identity_check:
       status: pass
       supporting_structure:
         - registry.yaml
+        - routes.yaml
         - workflows/content-pipeline.md
+        - templates/
     compliance_safe_memory:
-      status: pass_with_maturity_gap
+      status: pass
       supporting_structure:
         - registry.yaml
-      gap: no_dedicated_sensitive_information_policy_file_yet
+        - context/sensitive-information-policy.md
 
   readiness_to_start_work:
-    status: ready
+    status: applicable
     allowed_work:
       - capture_ideas
       - triage_backlog
@@ -126,19 +145,22 @@ grimorio_identity_check:
       - analyze_writing_samples
       - register_editorial_decisions_after_approval
       - prepare_publication_candidates
+      - process_references_into_backlog_candidates
+      - migrate_approved_learning_into_editorial_memory
     blocked_work:
       - automatic_publication_without_human_approval
-      - storing_sensitive_company_context_without_policy
-      - treating_sparse_editorial_memory_as_complete_authorial_model
+      - storing_sensitive_company_context_without_policy_and_specific_approval
+      - treating_sparse_or_unreviewed_samples_as_complete_authorial_model
+      - moving_processing_references_to_canonical_memory_without_review
 
   maturity_gaps_not_blocking_start:
-    - import_or_reference_writing_samples
+    - import_or_reference_writing_samples_as_files
     - analyze_samples_with_template
-    - populate_grimoire_memory_with_approved_patterns
-    - add_sensitive_information_policy_if_repository_starts_handling_private_or_company_context
+    - post_publication_metrics_not_yet_operationalized
     - optionally_register_this_child_in_parent_grimorio_children_registry
 
   operational_decision:
     publication_automation_status: deferred_until_editorial_flow_is_mature
     human_approval_required: true
     commit_policy: commit_only_when_richard_requests_or_authorizes_repository_changes
+    current_result: repository_is_valid_applicable_child_grimorio_for_editorial_work
