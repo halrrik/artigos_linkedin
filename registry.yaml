@@ -2,19 +2,20 @@ registry:
   id: grimorio.child.artigos_linkedin.registry
   type: child_grimorio_registry
   layer: child
-  status: active_development
-  version: 0.1.2
+  status: applicable
+  version: 0.2.0
   parent_id: grimorio.registry
   parent_version: 1.0.0-dev
-  local_version: 0.1.2
+  local_version: 0.2.0
   last_used_at: 2026-06-11
-  migration_status: aligned_with_parent_1_0_0_dev
+  migration_status: valid_applicable_child_grimorio_aligned_with_parent_1_0_0_dev
   scope: editorial_content_grimorio_for_ai_assisted_authorial_publishing
   precedence: registry_first_for_machine_use
   dependencies:
     - routes.yaml
     - content-types/taxonomy.yaml
     - context/editorial-system-context.md
+    - context/sensitive-information-policy.md
     - grimoire/core/grimoire-principles.md
     - grimoire/style/style-guide.md
     - grimoire/memory/editorial-memory.md
@@ -28,6 +29,7 @@ registry:
     - content_taxonomy
     - visual_asset_taxonomy
     - memory_update_policy
+    - sensitive_information_policy
     - readiness_status
 
   source:
@@ -63,8 +65,10 @@ registry:
     human_entrypoint: README.md
     routing_contract: routes.yaml
     content_taxonomy: content-types/taxonomy.yaml
+    sensitive_information_policy: context/sensitive-information-policy.md
     local_context:
       - context/editorial-system-context.md
+      - context/sensitive-information-policy.md
       - grimoire/core/grimoire-principles.md
       - grimoire/style/style-guide.md
       - grimoire/memory/editorial-memory.md
@@ -76,6 +80,14 @@ registry:
       - backlog/articles.md
       - backlog/linkedin-posts.md
       - backlog/responses.md
+    processing_references:
+      - references/processing/linkedin-content-map/00_indice_processamento.md
+      - references/processing/linkedin-content-map/01_inventario_conteudos.md
+      - references/processing/linkedin-content-map/02_eixos_editoriais.md
+      - references/processing/linkedin-content-map/03_estilo_escrita_e_voz.md
+      - references/processing/linkedin-content-map/04_aprendizados_editoriais.md
+      - references/processing/linkedin-content-map/05_backlog_artigos.md
+      - references/processing/linkedin-content-map/06_mapa_para_artigo_curto.md
     workflows:
       - workflows/content-pipeline.md
     templates:
@@ -101,8 +113,8 @@ registry:
     local_extension_rule: >
       This repository is a domain-specific child Grimorio for editorial content creation.
       It may adapt structure to editorial work, including text and visual content taxonomy,
-      but must preserve continuity, context routing, typed memory, controlled learning and
-      explicit approval before publication.
+      but must preserve continuity, context routing, typed memory, controlled learning,
+      sensitive information governance and explicit approval before publication.
 
   precedence_rules:
     order:
@@ -112,12 +124,14 @@ registry:
       - this_registry
       - routes.yaml
       - content-types/taxonomy.yaml
+      - context/sensitive-information-policy.md
       - decisions
       - context/editorial-system-context.md
       - grimoire/core/grimoire-principles.md
       - grimoire/style/style-guide.md
       - grimoire/memory/editorial-memory.md
       - backlog_items
+      - references_processing_items
       - templates
     conflict_resolution:
       - preserve_parent_concept_unless_user_approves_structural_change
@@ -126,6 +140,8 @@ registry:
       - separate_text_content_from_visual_asset_brief
       - prefer_typed_memory_over_raw_accumulation
       - prefer_current_backlog_status_over_assumed_task_state
+      - preserve_sensitive_information_policy_before_memory_capture
+      - treat_references_processing_as_intermediate_not_canonical_memory
       - escalate_when_context_is_missing_or_ambiguous
 
   required_behavior:
@@ -140,17 +156,18 @@ registry:
     - preserve_authorial_voice_over_generic_linkedin_style
     - require_explicit_human_approval_before_publication_or_commit_when_not_requested
     - capture_reusable_learning_only_after_classification_and_approval
+    - prevent_sensitive_information_storage_without_policy_and_approval
 
   readiness:
-    status: ready_for_editorial_work
-    classification: child_grimorio_application_aligned_with_parent_1_0_0_dev
+    status: applicable_for_editorial_work
+    classification: valid_applicable_child_grimorio_aligned_with_parent_1_0_0_dev
     rationale: >
       The repository contains canonical machine entrypoint, routing, content taxonomy,
-      visual asset taxonomy, typed backlog, style rules, workflow, templates, validation
-      and memory location. It is ready for controlled editorial work. Writing samples and
-      post-publication metrics remain maturity improvements, not blockers.
+      visual asset taxonomy, typed backlog, style rules, workflow, templates, validation,
+      memory location, sensitive information policy and processed editorial learning.
+      It is applicable for controlled editorial work. Writing samples, post-publication
+      metrics and parent registry linkage remain maturity improvements, not blockers.
     remaining_maturity_gaps:
-      - writing_samples_not_yet_imported_or_analyzed
-      - editorial_memory_sections_still_sparse
+      - writing_samples_not_yet_imported_or_analyzed_as_files
       - post_publication_metrics_not_yet_operationalized
       - child_not_registered_in_parent_children_registry
