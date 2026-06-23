@@ -6,8 +6,8 @@ Este arquivo registra aprendizados recorrentes sobre estilo, preferencias, temas
 
 - Tipo: memoria editorial canonica.
 - Estado: aplicavel para trabalho editorial controlado.
-- Ultima consolidacao: 2026-06-11.
-- Origem principal da consolidacao atual: processamento de artigos, posts, rascunhos, palestras e referencias externas em `references/processing/linkedin-content-map/`.
+- Ultima consolidacao: 2026-06-23.
+- Origem principal da consolidacao atual: processamento de artigos, posts, rascunhos, palestras, referencias externas em `references/processing/linkedin-content-map/` e aprendizados editoriais aprovados em publicacoes recentes.
 
 ## Territorio autoral principal
 
@@ -137,6 +137,22 @@ Textos recentes tendem a:
 
 Regra: textos antigos orientam repertorio, mas os mais recentes devem ter maior peso para calibrar a voz atual.
 
+## Ritmo textual e arquitetura de paragrafos
+
+A escrita autoral de Richard nao deve ser organizada como escadinha de IA: uma sequencia dominante de linhas muito curtas, mini-frases ou ideias jogadas uma abaixo da outra apenas para criar aparencia visual. Linha curta pode funcionar como impacto, virada ou respiro, mas nao deve substituir desenvolvimento, continuidade e profundidade.
+
+A correcao inversa tambem deve ser evitada: paragrafos artificialmente simetricos, com tamanho muito parecido, geram sensacao de formula matematica. O texto humano precisa respirar de forma irregular. Alguns paragrafos podem carregar mais peso, outros podem fazer curva, e outros podem segurar a pancada. O criterio nao e quantidade fixa de palavras ou caracteres; e funcao editorial, ritmo, encadeamento e densidade.
+
+Ao revisar textos autorais de Richard, Shade deve observar simultaneamente:
+
+- evitar mini-frases como arquitetura dominante;
+- evitar paragrafos com tamanho mecanicamente parecido;
+- preservar paragrafos desenvolvidos quando a ideia exige profundidade;
+- usar quebras curtas apenas quando houver funcao de impacto, pausa, tensao ou mudanca de direcao;
+- priorizar leitura viva e organica sobre distribuicao visual simetrica.
+
+Aprendizado consolidado no post publicado em `published/2026-06-23-motores-diferentes-pertencimento-faisca-sentido.md`.
+
 ## Temas a evitar ou tratar com cuidado
 
 - Critica a agilistas iniciantes: mirar o sistema de formacao, incentivos e promessas, nao humilhar pessoas.
@@ -165,7 +181,9 @@ Evitar tambem:
 - excesso de hashtags;
 - metaforas competindo entre si;
 - estetica de IA em textos profissionais;
-- listas quando o texto pede argumento.
+- listas quando o texto pede argumento;
+- escadinha de IA como arquitetura dominante;
+- simetria matematica de paragrafos como falsa solucao de ritmo.
 
 ## Regras para novos textos
 
@@ -177,6 +195,8 @@ Evitar tambem:
 6. Preservar nuance em temas polemicos.
 7. Trocar motivacao por consequencia.
 8. Fechar com frase que ajude o leitor a decidir, observar ou agir melhor.
+9. Construir paragrafos por funcao editorial, nao por tamanho visual parecido.
+10. Usar quebras curtas com intencao, nao como substituto de profundidade.
 
 ## Decisoes editoriais permanentes
 
