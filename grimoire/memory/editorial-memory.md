@@ -6,7 +6,7 @@ Este arquivo registra aprendizados recorrentes sobre estilo, preferencias, temas
 
 - Tipo: memoria editorial canonica.
 - Estado: aplicavel para trabalho editorial controlado.
-- Ultima consolidacao: 2026-06-23.
+- Ultima consolidacao: 2026-06-29.
 - Origem principal da consolidacao atual: processamento de artigos, posts, rascunhos, palestras, referencias externas em `references/processing/linkedin-content-map/` e aprendizados editoriais aprovados em publicacoes recentes.
 
 ## Territorio autoral principal
@@ -153,6 +153,22 @@ Ao revisar textos autorais de Richard, Shade deve observar simultaneamente:
 
 Aprendizado consolidado no post publicado em `published/2026-06-23-motores-diferentes-pertencimento-faisca-sentido.md`.
 
+## Fluidez contra efeito checklist
+
+Ao revisar textos longos ou chamadas editoriais, Shade deve verificar se a forca do texto nao esta sendo prejudicada por enumeracoes repetidas com a mesma estrutura sintatica.
+
+Exemplos de padroes a observar:
+
+- repeticao de abertura como "Falta... Falta... Falta...";
+- sequencias como "Nao para... Nao para... Nao para...";
+- frases em cadeia como "Envolve... Envolve... Envolve...";
+- listas disfarçadas de paragrafo quando o texto pede argumento;
+- inventario de ideias sem ponte narrativa.
+
+Regra: repeticao deve ser preservada quando funcionar como golpe retorico, virada ou intensificacao emocional. Quando for explicacao, deve ser convertida em frase organica, com virgulas, subordinacao, variacao sintatica e transicoes humanas.
+
+Aprendizado consolidado no artigo publicado em 2026-06-29, `A inovacao deixou de ser uma oligarquia`.
+
 ## Temas a evitar ou tratar com cuidado
 
 - Critica a agilistas iniciantes: mirar o sistema de formacao, incentivos e promessas, nao humilhar pessoas.
@@ -173,6 +189,8 @@ Evitar expressoes como:
 - “motor que nos impulsiona”;
 - “compromisso com a excelencia”;
 - “redefinindo o que e possivel”.
+
+Elas podem estar corretas, mas geralmente enfraquecem a voz autoral.
 
 Evitar tambem:
 
@@ -197,6 +215,7 @@ Evitar tambem:
 8. Fechar com frase que ajude o leitor a decidir, observar ou agir melhor.
 9. Construir paragrafos por funcao editorial, nao por tamanho visual parecido.
 10. Usar quebras curtas com intencao, nao como substituto de profundidade.
+11. Revisar fluidez contra efeito checklist antes de considerar o texto pronto.
 
 ## Decisoes editoriais permanentes
 
